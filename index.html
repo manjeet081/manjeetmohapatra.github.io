@@ -753,7 +753,7 @@ nav {
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
             Get in Touch
           </a>
-		  <a class="btn btn-outline" onclick="downlaodResume()">Download Resume ↓</a>
+		  <button class="btn btn-outline" onclick="downlaodResume()">Download Resume ↓</button>
           <a class="btn btn-outline" href="https://linkedin.com/in/manjeet-mohapatra-92a346126" target="_blank">LinkedIn ↗</a>
         </div>
         <div class="hero-contacts">
@@ -1102,12 +1102,22 @@ document.querySelectorAll('.exp-tab').forEach(tab => {
 });
 /* Downlaod Resume*/
 function downloadResume(){
-const link= document.createElement('a');
-link.href='https://github.com/manjeet081/manjeetmohapatra.github.io/blob/main/ManjeetMohapatra_Resume_10Years.pdf';
-link.download='https://github.com/manjeet081/manjeetmohapatra.github.io/blob/main/ManjeetMohapatra_Resume_10Years.pdf';
-document.body.appendChild(link);
-link.click();
-document.body.removechild(link);
+document.getElementById('downloadBtn').addEventListener('click', async () => {
+    const response = await fetch('./Manjeet_Kumar_Mohapatra_Resume.pdf');
+    const blob = await response.blob();
+
+    const blobUrl = window.URL.createObjectURL(blob);
+
+    const a = document.createElement('a');
+    a.href = blobUrl;
+    a.download = 'Manjeet_Kumar_Mohapatra_Resume.pdf';
+
+    document.body.appendChild(a);
+    a.click();
+
+    window.URL.revokeObjectURL(blobUrl);
+    a.remove();
+});
 }
 </script>
 </body>
